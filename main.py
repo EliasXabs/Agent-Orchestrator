@@ -1,30 +1,13 @@
-from agents.coder_agent import CoderAgent
-from executor.executor import Executor
+from orchestrator.orchestrator import Orchestrator
 
 
 def main():
 
-    agent = CoderAgent()
-    executor = Executor()
+    orchestrator = Orchestrator()
 
-    task = "Write a Python program that bubble sorts a list of integers and prints the sorted list. The list of integers is [64, 34, 25, 12, 22, 11, 90] and statically defined in the code."
+    task = "Write a Python program that prints numbers from 1 to 5 but divide each number by zero."
 
-    code = agent.generate_code(task)
-
-    print("\nGenerated Code:\n")
-    print(code)
-
-    executor.write_code(code)
-
-    result = executor.run_code()
-
-    print("\nExecution Result:\n")
-
-    if result["success"]:
-        print(result["stdout"])
-    else:
-        print("ERROR:")
-        print(result["stderr"])
+    orchestrator.run_task(task)
 
 
 if __name__ == "__main__":

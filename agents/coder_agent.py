@@ -6,26 +6,48 @@ class CoderAgent:
     def __init__(self):
         self.client = OllamaClient()
 
-    def build_prompt(self, task: str) -> str:
+    def build_prompt(self, task: str, previous_code: str = None, error: str = None):
+
+        if previous_code is not None and error is not None:
+            return f"""
+                    You are a professional Python developer.
+
+                    The following Python code failed.
+
+                    TASK:
+                    {task}
+
+                    CODE:
+                    {previous_code}
+
+                    ERROR:
+                    {error}
+
+                    Fix the code and return the FULL corrected Python code.
+
+                    Rules:
+                    - Return ONLY valid Python code
+                    - No explanations
+                    - No markdown
+                    """
+
         return f"""
                 You are a professional Python developer.
 
-                Your task is to write Python code that solves the following problem.
+                Write Python code for the following task.
+
+                TASK:
+                {task}
 
                 Rules:
                 - Return ONLY valid Python code
                 - No explanations
                 - No markdown
-                - No comments outside the code
-                - The code must be executable
-
-                Task:
-                {task}
                 """
 
-    def generate_code(self, task: str) -> str:
+    def generate_code(self, task: str, previous_code: str = None, error: str = None):
 
-        prompt = self.build_prompt(task)
+        prompt = self.build_prompt(task, previous_code, error)
 
         response = self.client.generate(prompt)
 
