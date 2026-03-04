@@ -1,6 +1,11 @@
+# Setup files
 .env
 .vscode
+
 # Python bytecode cache
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Workspace
+workspace/
