@@ -1,18 +1,16 @@
-from llm.ollama_client import OllamaClient
+from agents.coder_agent import CoderAgent
+
 
 def main():
 
-    client = OllamaClient()
+    agent = CoderAgent()
 
-    prompt = """
-                Write a Python function that adds two numbers.
-                Return only the code.
-             """
+    task = "Write a Python function that computes the factorial of a number."
 
-    result = client.generate(prompt)
+    code = agent.generate_code(task)
 
-    print("\nModel Output:\n")
-    print(result)
+    print("\nGenerated Code:\n")
+    print(code)
 
 
 if __name__ == "__main__":
